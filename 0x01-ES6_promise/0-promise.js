@@ -1,3 +1,4 @@
-function getResponseFromAPI() {
-  return new Promise((resolve, reject) => {});
-}
+function getResponseFromAPI(){
+  return new Promise(function(resolve, reject) { });
+};
+
