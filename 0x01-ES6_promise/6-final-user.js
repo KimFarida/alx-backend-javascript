@@ -4,9 +4,9 @@ import uploadPhoto from './5-photo-reject';
 export default function handleProfileSignup(firstName, lastName, fileName) {
   return Promise.all([
     signUpUser(firstName, lastName),
-    uploadPhoto(fileName).catch((error) =>
+    uploadPhoto(fileName).catch((error) => {
       return error;
-    ),
+    }),
   ]).then((values) => {
     let status;
 
