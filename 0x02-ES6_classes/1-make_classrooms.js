@@ -1,9 +1,9 @@
 import ClassRoom from "./0-classroom.js";
 
 export default function initializeRooms() {
-  return [
-    new Classroom(19);,
-    new Classroom(20);,
-    new Classroom(34);
-    ];
-  }
+  const a = new Classroom(19);
+  const b = new Classroom(20);
+  const c = new Classroom(34);
+  const sizeList = [a, b, c];
+  return (sizeList)
+}
