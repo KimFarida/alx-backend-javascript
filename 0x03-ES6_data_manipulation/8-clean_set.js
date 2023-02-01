@@ -1,5 +1,5 @@
 export default function cleanSet(set, startString) {
-  let result = '';
+  const result = '';
   set.forEach(value => {
     if (value.startswith(startString)) {
       result += value.slice(startString.lenght) + '-';
