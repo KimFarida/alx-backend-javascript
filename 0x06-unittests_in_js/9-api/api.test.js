@@ -1,66 +1,50 @@
-const chai = require('chai');
-const expect = chai.expect;
 const request = require('request');
+const { expect } = require('chai');
 
-describe('test the API', () => {
-  it('test the API with localost:7865', (done) => {
-    request('http://localhost:7865', 'GET', (er, rs, bd) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(200);
-      expect(bd).to.equal('Welcome to the payment system');
+describe('Index page', function() {
+  it('should return a status code of 200 when / is accessed', (done) => {
+    request.get('http://localhost:7865', (err, res, body) => {
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      done();
     });
-    done();
   });
 
-  it('test the API with cart/3', (done) => {
-    request('http://localhost:7865/cart/3', 'GET', (er, rs, bd) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(200);
-      expect(bd).to.equal('Payment methods for cart 3');
+  it('should return the correct message when / is accessed', (done) => {
+    request.get('http://localhost:7865', (err, res, body) => {
+      expect(body).to.equal('Welcome to the payment system')
+      done();
     });
-    done();
+  });
+});
+
+describe('Carts page', function() {
+  it('should return a status code of 200 when /cart/id is accessed', (done) => {
+    request.get('http://localhost:7865/cart/3', (err, res, body) => {
+      expect(res).to.exist;
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
   });
 
-  it('test the API with cart/234', (done) => {
-    request('http://localhost:7865/cart/234', 'GET', (er, rs, bd) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(200);
-      expect(bd).to.equal('Payment methods for cart 234');
+  it('should return the correct message when /cart/id is accessed', (done) => {
+    request.get('http://localhost:7865/cart/3', (err, res, body) => {
+      expect(body).to.equal('Payment methods for cart 3')
+      done();
     });
-    done();
   });
 
-  it('test the API with cart/abc', (done) => {
-    request('http://localhost:7865/cart/abc', 'GET', (er, rs) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(404);
+  it('should return a 404 status code when /cart/id is accessed if id is negative', (done) => {
+    request.get('http://localhost:7865/cart/-4', (err, res, body) => {
+      expect(res.statusCode).to.equal(404);
+      done();
     });
-    done();
   });
 
-  it('test the API with cart/2bc', (done) => {
-    request('http://localhost:7865/cart/2bc', 'GET', (er, rs) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(404);
+  it('should return a 404 status code when /cart/id is accessed if id is string', (done) => {
+    request.get('http://localhost:7865/cart/Ayomide', (err, res, body) => {
+      expect(res.statusCode).to.equal(404);
+      done();
     });
-    done();
   });
-
-  it('test the API with cart/23a', (done) => {
-    request('http://localhost:7865/cart/23a', 'GET', (er, rs) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(404);
-    });
-    done();
-  });
-
-  it('test the API with cart', (done) => {
-    request('http://localhost:7865/cart', 'GET', (er, rs) => {
-      if (er) throw er;
-      expect(rs.statusCode).to.equal(404);
-    });
-    done();
-  });
-
-
 });
